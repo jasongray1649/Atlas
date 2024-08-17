@@ -5,15 +5,18 @@
  * Implements global state providers and error boundaries.
  */
 
-import { StyleSheet, Text, View } from "react-native"
 import { Slot, Stack } from "expo-router"
+import { View } from "react-native"
 
-const RootLayout = () => {
+import "../../node_modules/.cache/nativewind/global.css"
+
+export default function RootLayout() {
 	return (
-		<Stack>
-			<Stack.Screen name="index" options={{ headerShown: false }} />
-		</Stack>
+		<View className="flex-1">
+			<Stack>
+				<Stack.Screen name="index" options={{ headerShown: false }} />
+			</Stack>
+			<Slot />
+		</View>
 	)
 }
-
-export default RootLayout
