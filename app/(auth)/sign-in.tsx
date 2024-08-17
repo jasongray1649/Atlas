@@ -1,10 +1,9 @@
-// app/index.tsx
+// app/(auth)/sign-in.tsx
 /**
- * Entry point of the application.
- * Handles initial routing based on authentication status.
- * Redirects to appropriate screens (sign-in or main app).
+ * Authentication page.
+ * Handles sign-in and links to sign-up.
+ * Includes form for user credentials and submission logic.
  */
-
 import { StatusBar } from "expo-status-bar"
 import { StyleSheet, Text, View } from "react-native"
 import { Link } from "expo-router"
@@ -12,9 +11,9 @@ import { Link } from "expo-router"
 export default function App() {
 	return (
 		<View>
-			<Text>Index</Text>
+			<Text>sign-in</Text>
 			<StatusBar style="auto" />
-			<Link href="/sign-in">Sign In</Link>
+			<Link href="/sign-up">go to sign-up</Link>
 		</View>
 	)
 }

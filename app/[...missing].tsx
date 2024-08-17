@@ -1,32 +1,18 @@
-import { Link, Stack } from 'expo-router';
-import { StyleSheet } from 'react-native';
+// app/[...missing].tsx
+/**
+ * 404 Not Found component.
+ * Displayed when accessing non-existent routes.
+ * Provides navigation options to return to valid app sections.
+ */
+import React from "react"
 
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function NotFoundScreen() {
-  return (
-    <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
-      <ThemedView style={styles.container}>
-        <ThemedText type="title">This screen doesn't exist.</ThemedText>
-        <Link href="/" style={styles.link}>
-          <ThemedText type="link">Go to home screen!</ThemedText>
-        </Link>
-      </ThemedView>
-    </>
-  );
+const NotFound: React.FC = () => {
+	return (
+		<div>
+			<h1>404 - Page Not Found</h1>
+			<p>The page you are looking for does not exist.</p>
+		</div>
+	)
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-});
+export default NotFound
