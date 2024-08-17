@@ -11,8 +11,8 @@ import { Link } from "expo-router"
 
 export default function App() {
 	return (
-		<View>
-			<Text>Index</Text>
+		<View className="flex-1 justify-center items-center">
+			<Text className="text-3xl font-extralight">Index</Text>
 			<StatusBar style="auto" />
 			<Link href="/sign-in">Sign In</Link>
 		</View>
