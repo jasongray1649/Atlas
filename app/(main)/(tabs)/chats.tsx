@@ -6,6 +6,17 @@
  */
 import { View, Text } from "react-native"
 import React from "react"
+import { FlatList, TouchableOpacity, Image } from "react-native"
+import { Link } from "expo-router"
+
+const profiles = [
+	{ id: "1", name: "User 1", thumbnail: "/assets/images/atlas-logo" },
+	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
+	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
+	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
+	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
+	// Add more profiles as needed
+]
 
 const chats = () => {
 	return (

@@ -15,7 +15,7 @@ import { Redirect, router } from "expo-router"
 export default function App() {
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
-			<ScrollView contentContainerStyle={{ height: "100%" }}>
+			<ScrollView contentContainerStyle={{ height: "101%" }}>
 				<View className="w-max-[300vh] items-center h-max-[150vh] px-6 mt-20">
 					<Image
 						source={images.logo}
@@ -34,7 +34,7 @@ export default function App() {
 						handlePress={() => {
 							router.push("/signin")
 						}}
-						containerStyles="w-full mt-10"
+						containerStyles="w-full mt+10"
 						textStyles={""}
 						isLoading={false}
 					/>
