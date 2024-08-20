@@ -59,7 +59,7 @@ const TabsLayout = () => {
 							<TabIcon
 								icon={icons.eye}
 								color={color}
-								name="nearby"
+								name="Nearby"
 								focused={focused}
 							/>
 						),
@@ -74,7 +74,7 @@ const TabsLayout = () => {
 							<TabIcon
 								icon={icons.chat}
 								color={color}
-								name="chats"
+								name="Chats"
 								focused={focused}
 							/>
 						),
@@ -83,13 +83,13 @@ const TabsLayout = () => {
 				<Tabs.Screen
 					name="neighbor"
 					options={{
-						title: "Knock",
+						title: "Neighbor",
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
 							<TabIcon
 								icon={icons.knock}
 								color={color}
-								name="neighbor"
+								name="Knock"
 								focused={focused}
 							/>
 						),
@@ -104,7 +104,7 @@ const TabsLayout = () => {
 							<TabIcon
 								icon={icons.profile}
 								color={color}
-								name="profile"
+								name="Profile"
 								focused={focused}
 							/>
 						),

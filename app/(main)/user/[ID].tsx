@@ -6,7 +6,7 @@
  */
 import React from "react"
 import { useLocalSearchParams, useGlobalSearchParams, Link } from "expo-router"
-import { Text, View, Image } from "react-native"
+import { Text, View, Image, ScrollView } from "react-native"
 import profile from "@/constants/profiles"
 import { SafeAreaView } from "react-native-safe-area-context"
 
@@ -18,12 +18,14 @@ const UserProfile = () => {
 	console.log(profile[id].name)
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
-			<Image
-				source={profile[id].thumbnail}
-				style={{ width: 300, height: 150 }}
-				resizeMode="contain"
-			/>
-			<Text style={{ color: "white" }}>{profile[id].id}</Text>
+			<ScrollView contentContainerStyle={{ height: "101%" }}>
+				<Image
+					source={profile[id].profilepic}
+					style={{ flex: 1 }}
+					resizeMode="contain"
+				/>
+				<Text style={{ color: "white" }}>{profile[id].name}</Text>
+			</ScrollView>
 		</SafeAreaView>
 	)
 }

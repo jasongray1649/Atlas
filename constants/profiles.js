@@ -9,13 +9,14 @@ const images = require.context(
 
 // Import the default image
 import defaultImage from "../assets/images/profiles/default.png"
+import defaultProfile from "../assets/images/profiles/defaultprofile.png"
 
 const profile = Array.from({ length: numberOfProfiles }, (_, index) => {
 	const id = (index + 1).toString()
 	const imagePath = `./${id}.png`
 	const hasImage = images.keys().includes(imagePath)
 	const thumbnail = hasImage ? images(imagePath) : defaultImage
-	const profilepic = thumbnail
+	const profilepic = hasImage ? thumbnail : defaultProfile
 	const username = hasImage ? `User ${id}` : "Donald J. Trump"
 	return {
 		id,

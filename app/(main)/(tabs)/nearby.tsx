@@ -23,8 +23,6 @@ interface ProfileThumbnailProps {
 }
 
 const ProfileThumbnail: React.FC<ProfileThumbnailProps> = ({ profile }) => {
-	console.log(`Loading thumbnail for ${profile.name}:`, profile.thumbnail)
-
 	return (
 		<Link href={`/user/${profile.id}`} asChild>
 			<TouchableOpacity className="relative w-1/3 aspect-square">
@@ -51,8 +49,6 @@ const ProfileThumbnail: React.FC<ProfileThumbnailProps> = ({ profile }) => {
 }
 
 const Nearby = () => {
-	console.log("All profiles:", JSON.stringify(profiles, null, 2))
-
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
 			<FlatList

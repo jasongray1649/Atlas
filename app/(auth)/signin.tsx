@@ -4,25 +4,40 @@
  * Handles sign-in and links to sign-up.
  * Includes form for user credentials and submission logic.
  */
-import {
-	View,
-	Image,
-	ScrollView,
-	TextInput,
-	TouchableOpacity,
-} from "react-native"
+import { View, Image, ScrollView, Text, Alert } from "react-native"
 import React, { useState } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { images } from "@/constants"
-import { Ionicons } from "@expo/vector-icons"
 import CustomButton from "../../components/CustomButton"
-import { router } from "expo-router"
+import { router, Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
+import CustomInput from "../../components/CustomInput"
+import { SignIn } from "@/lib/appwrite"
 
 const Signin = () => {
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
-	const [showPassword, setShowPassword] = useState(false)
+	const [email, setEmail] = useState("")
+	const [isSubmitting, setIsSubmitting] = useState(false)
+
+	const submit = async () => {
+		if (email == "" || password == "") {
+			Alert.alert("Error", "Please fill in all fields")
+		}
+		setIsSubmitting(true)
+
+		try {
+			await SignIn(email, password)
+
+			//set to global state using context...
+
+			router.replace("/nearby")
+		} catch (error: any) {
+			Alert.alert("Error", error.message)
+		} finally {
+			setIsSubmitting(false)
+		}
+	}
 
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
@@ -40,47 +55,38 @@ const Signin = () => {
 						resizeMode="contain"
 					/>
 
-					<View className="w-full mt-4">
-						<TextInput
-							className="w-full bg-gray-700 text-white p-4 rounded-md mb-4 text-lg"
-							placeholder="Username"
-							placeholderTextColor="#9CA3AF"
-							value={username}
-							onChangeText={setUsername}
+					<View className="w-full mt-4 flex items-center">
+						<CustomInput
+							placeholder="Email"
+							value={email}
+							onChangeText={setEmail}
 						/>
-						<View className="relative w-full flex-row items-center">
-							<TextInput
-								className="flex-1 bg-gray-700 text-white p-4 rounded-md text-lg"
-								placeholder="Password"
-								placeholderTextColor="#9CA3AF"
-								secureTextEntry={!showPassword}
-								value={password}
-								onChangeText={setPassword}
-							/>
-							<TouchableOpacity
-								className="absolute"
-								onPress={() => setShowPassword(!showPassword)}
-							>
-								<Ionicons
-									name={showPassword ? "eye-off" : "eye"}
-									size={24}
-									color="#9CA3AF"
-								/>
-							</TouchableOpacity>
-						</View>
+						<CustomInput
+							placeholder="Password"
+							value={password}
+							onChangeText={setPassword}
+							secureTextEntry
+						/>
 					</View>
 
 					<CustomButton
 						title="Sign in"
-						handlePress={() => {
-							console.log("Username:", username, "Password:", password)
-							// Add your sign-in logic here
-							router.push("/chats")
-						}}
+						handlePress={submit}
 						containerStyles="w-full mt-10"
 						textStyles={""}
-						isLoading={false}
+						isLoading={isSubmitting}
 					/>
+					<View className="justify-center pt-5 flex-row gap-2">
+						<Text className="text-lg text-gray-100 font-pregular">
+							Don't have an account?
+						</Text>
+						<Link
+							href="/signup"
+							className="text-lg font-psemibold text-secondary"
+						>
+							Sign Up
+						</Link>
+					</View>
 				</View>
 			</ScrollView>
 			<StatusBar backgroundColor="#161622" style="light" />
