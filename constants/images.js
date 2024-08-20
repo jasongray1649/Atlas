@@ -7,6 +7,7 @@ import logoSmall from "../assets/images/logo-small.png"
 import empty from "../assets/images/empty.png"
 import icon from "../assets/images/icon.png"
 import logofull from "../assets/images/logo_full.png"
+import byzantine from "../assets/images/byzantine.png"
 
 export default {
 	profile,
@@ -18,4 +19,5 @@ export default {
 	empty,
 	icon,
 	logofull,
+	byzantine,
 }

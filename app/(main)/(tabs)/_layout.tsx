@@ -57,7 +57,7 @@ const TabsLayout = () => {
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
 							<TabIcon
-								icon={icons.home}
+								icon={icons.eye}
 								color={color}
 								name="nearby"
 								focused={focused}
@@ -72,7 +72,7 @@ const TabsLayout = () => {
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
 							<TabIcon
-								icon={icons.home}
+								icon={icons.chat}
 								color={color}
 								name="chats"
 								focused={focused}
@@ -87,7 +87,7 @@ const TabsLayout = () => {
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
 							<TabIcon
-								icon={icons.home}
+								icon={icons.knock}
 								color={color}
 								name="neighbor"
 								focused={focused}
@@ -102,7 +102,7 @@ const TabsLayout = () => {
 						headerShown: false,
 						tabBarIcon: ({ color, focused }) => (
 							<TabIcon
-								icon={icons.home}
+								icon={icons.profile}
 								color={color}
 								name="profile"
 								focused={focused}

@@ -8,20 +8,16 @@ import { View, Text } from "react-native"
 import React from "react"
 import { FlatList, TouchableOpacity, Image } from "react-native"
 import { Link } from "expo-router"
-
-const profiles = [
-	{ id: "1", name: "User 1", thumbnail: "/assets/images/atlas-logo" },
-	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
-	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
-	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
-	{ id: "2", name: "User 2", thumbnail: "/assets/images/atlas-logo" },
-	// Add more profiles as needed
-]
+import profile from "@/constants/profiles"
 
 const chats = () => {
 	return (
 		<View>
-			<Text>chats</Text>
+			<Image
+				source={profile[0].thumbnail}
+				style={{ width: 300, height: 150 }}
+				resizeMode="contain"
+			/>
 		</View>
 	)
 }

@@ -8,14 +8,14 @@ import { useCallback } from "react"
 
 export default function RootLayout() {
 	const [fontsLoaded, fontError] = useFonts({
-		pregular: require("../assets/fonts/Poppins-Regular.ttf"),
-		pmedium: require("../assets/fonts/Poppins-Medium.ttf"),
-		pbold: require("../assets/fonts/Poppins-Bold.ttf"),
-		psemi: require("../assets/fonts/Poppins-SemiBold.ttf"),
-		pextrabold: require("../assets/fonts/Poppins-ExtraBold.ttf"),
-		pblack: require("../assets/fonts/Poppins-Black.ttf"),
-		pextralight: require("../assets/fonts/Poppins-ExtraLight.ttf"),
-		pthin: require("../assets/fonts/Poppins-Thin.ttf"),
+		pregular: require("@/assets/fonts/Poppins-Regular.ttf"),
+		pmedium: require("@/assets/fonts/Poppins-Medium.ttf"),
+		pbold: require("@/assets/fonts/Poppins-Bold.ttf"),
+		psemi: require("@/assets/fonts/Poppins-SemiBold.ttf"),
+		pextrabold: require("@/assets/fonts/Poppins-ExtraBold.ttf"),
+		pblack: require("@/assets/fonts/Poppins-Black.ttf"),
+		pextralight: require("@/assets/fonts/Poppins-ExtraLight.ttf"),
+		pthin: require("@/assets/fonts/Poppins-Thin.ttf"),
 	})
 
 	const onLayoutRootView = useCallback(async () => {
