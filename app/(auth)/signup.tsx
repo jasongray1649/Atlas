@@ -15,7 +15,7 @@ import CustomInput from "../../components/CustomInput"
 import { createUser } from "../../lib/appwrite"
 
 const SignUp = () => {
-	const [username, setUsername] = useState("")
+	const [username, setUser] = useState("")
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
@@ -64,7 +64,7 @@ const SignUp = () => {
 						<CustomInput
 							placeholder="Username"
 							value={username}
-							onChangeText={setUsername}
+							onChangeText={setUser}
 						/>
 						<CustomInput
 							placeholder="Password"

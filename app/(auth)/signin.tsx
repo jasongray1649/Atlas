@@ -12,10 +12,11 @@ import CustomButton from "../../components/CustomButton"
 import { router, Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import CustomInput from "../../components/CustomInput"
-import { SignIn } from "@/lib/appwrite"
+import { getCurrentUser, SignIn } from "@/lib/appwrite"
+import { useGlobalContext } from "../../context/GlobalProvider"
 
 const Signin = () => {
-	const [username, setUsername] = useState("")
+	const { setUser, setIsLoggedIn } = useGlobalContext()
 	const [password, setPassword] = useState("")
 	const [email, setEmail] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
@@ -28,9 +29,10 @@ const Signin = () => {
 
 		try {
 			await SignIn(email, password)
-
-			//set to global state using context...
-
+			const result = await getCurrentUser()
+			setUser(result)
+			setIsLoggedIn(true)
+			Alert.alert("Success", "Logged in successfully")
 			router.replace("/nearby")
 		} catch (error: any) {
 			Alert.alert("Error", error.message)
