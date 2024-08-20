@@ -13,9 +13,6 @@ import { SafeAreaView } from "react-native-safe-area-context"
 const UserProfile = () => {
 	const params = useLocalSearchParams()
 	const id = Number(params.ID) - 1
-	console.log("URL Parameters:", params)
-	console.log("id:", params.ID)
-	console.log(profile[id].name)
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
 			<ScrollView contentContainerStyle={{ height: "101%" }}>
