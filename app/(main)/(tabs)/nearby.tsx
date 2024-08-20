@@ -6,9 +6,17 @@
  */
 
 import React from "react"
-import { View, FlatList, TouchableOpacity, Image, Text } from "react-native"
+import {
+	View,
+	FlatList,
+	TouchableOpacity,
+	Image,
+	Text,
+	StyleSheet,
+} from "react-native"
 import { Link } from "expo-router"
 import profiles from "@/constants/profiles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 interface ProfileThumbnailProps {
 	profile: { id: string; name: string; thumbnail: any }
@@ -18,11 +26,11 @@ const ProfileThumbnail: React.FC<ProfileThumbnailProps> = ({ profile }) => {
 	console.log(`Loading thumbnail for ${profile.name}:`, profile.thumbnail)
 
 	return (
-		<Link href={`/profile/${profile.id}`} asChild>
-			<TouchableOpacity className="flex-1 items-center mb-4">
+		<Link href={`/user/${profile.id}`} asChild>
+			<TouchableOpacity className="relative w-1/3 aspect-square">
 				<Image
 					source={profile.thumbnail}
-					className="w-[150px] h-[150px]"
+					className="w-full h-full border-[0.75px] border-[#999999]"
 					resizeMode="cover"
 					onError={(error) =>
 						console.error(
@@ -31,7 +39,12 @@ const ProfileThumbnail: React.FC<ProfileThumbnailProps> = ({ profile }) => {
 						)
 					}
 				/>
-				<Text className="text-center font-semibold mt-2">{profile.name}</Text>
+				<Text
+					className="absolute bottom-1 left-3 right-1 text-white text-left"
+					style={styles.profileName}
+				>
+					{profile.name}
+				</Text>
 			</TouchableOpacity>
 		</Link>
 	)
@@ -41,17 +54,27 @@ const Nearby = () => {
 	console.log("All profiles:", JSON.stringify(profiles, null, 2))
 
 	return (
-		<View className="flex-1 p-5 mt-10">
+		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
 			<FlatList
 				data={profiles}
 				renderItem={({ item }) => <ProfileThumbnail profile={item} />}
 				keyExtractor={(item) => item.id}
-				numColumns={2}
-				columnWrapperStyle={{ justifyContent: "space-between" }}
-				contentContainerStyle={{ gap: 16 }}
+				numColumns={3}
+				contentContainerStyle={{ flexGrow: 1 }}
 			/>
-		</View>
+		</SafeAreaView>
 	)
 }
+
+const styles = StyleSheet.create({
+	profileName: {
+		color: "white",
+		fontWeight: "bold",
+		textAlign: "left",
+		textShadowColor: "rgba(0, 0, 0, 0.75)",
+		textShadowOffset: { width: 1, height: 1 },
+		textShadowRadius: 3,
+	},
+})
 
 export default Nearby
