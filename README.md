@@ -1,5 +1,3 @@
-# Welcome to your Expo app 👋
-
 /project/app/
 ├── \_layout.tsx (Root layout, app-wide styling)
 ├── index.tsx (Entry point, initial routing)
