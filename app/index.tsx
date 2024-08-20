@@ -15,17 +15,29 @@ import { Redirect, router } from "expo-router"
 export default function App() {
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
-			<ScrollView contentContainerStyle={{ height: "101%" }}>
-				<View className="w-max-[300vh] items-center h-max-[150vh] px-6 mt-20">
+			<ScrollView
+				contentContainerStyle={{
+					flexGrow: 1,
+					justifyContent: "center",
+					height: "101%",
+				}}
+			>
+				<View
+					style={{
+						alignItems: "center",
+						paddingHorizontal: 24,
+						marginTop: -10,
+					}}
+				>
 					<Image
 						source={images.logo}
-						style={{ width: 300, height: 150 }}
+						style={{ width: 300, height: 150, marginTop: 0 }}
 						resizeMode="contain"
 					/>
 
 					<Image
 						source={images.cards}
-						className="max-w-[300px] w-full h-[300px] mt-7"
+						style={{ width: 300, height: 300, marginTop: -40 }}
 						resizeMode="contain"
 					/>
 

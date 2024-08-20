@@ -8,6 +8,7 @@ import React from "react"
 import { useLocalSearchParams, useGlobalSearchParams, Link } from "expo-router"
 import { Text, View, Image } from "react-native"
 import profile from "@/constants/profiles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 const UserProfile = () => {
 	const params = useLocalSearchParams()
@@ -16,10 +17,14 @@ const UserProfile = () => {
 	console.log("id:", params.ID)
 	console.log(profile[id].name)
 	return (
-		<View>
-			<Text>{profile[id].id}</Text>
-			<Image source={profile[id].thumbnail} />
-		</View>
+		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
+			<Image
+				source={profile[id].thumbnail}
+				style={{ width: 300, height: 150 }}
+				resizeMode="contain"
+			/>
+			<Text style={{ color: "white" }}>{profile[id].id}</Text>
+		</SafeAreaView>
 	)
 }
 

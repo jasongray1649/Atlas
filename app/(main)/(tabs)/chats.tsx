@@ -9,16 +9,17 @@ import React from "react"
 import { FlatList, TouchableOpacity, Image } from "react-native"
 import { Link } from "expo-router"
 import profile from "@/constants/profiles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 const chats = () => {
 	return (
-		<View>
+		<SafeAreaView>
 			<Image
 				source={profile[0].thumbnail}
 				style={{ width: 300, height: 150 }}
 				resizeMode="contain"
 			/>
-		</View>
+		</SafeAreaView>
 	)
 }
 
