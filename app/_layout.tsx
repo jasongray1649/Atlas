@@ -3,38 +3,48 @@ import { View } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import * as SplashScreen from "expo-splash-screen"
 import { useFonts } from "expo-font"
-import "../global.css"
 import { useCallback, useEffect } from "react"
 import GlobalProvider from "../context/GlobalProvider"
+import "../global.css"
 
 export default function RootLayout() {
-	//	const [fontsLoaded, fontError] = useFonts({
-	// Add fonts here
-	//	})
-
-	const onLayoutRootView = useCallback(async () => {
-		//		if (fontsLoaded || fontError) {
-		await SplashScreen.hideAsync()
-		//		}
-	}, [])
-	//	[fontsLoaded, fontError])
-
-	//	if (!fontsLoaded && !fontError) {
-	//		return null
-	//	}
+	const [fontsLoaded] = useFonts({
+		// Specify fonts here
+	})
 
 	useEffect(() => {
-		onLayoutRootView()
-	}, [onLayoutRootView])
+		async function prepare() {
+			try {
+				// Keep the splash screen visible while we fetch resources
+				await SplashScreen.preventAutoHideAsync()
+			} catch (e) {
+				console.warn(e)
+			}
+		}
+		prepare()
+	}, [])
+
+	const onLayoutRootView = useCallback(async () => {
+		if (fontsLoaded) {
+			await SplashScreen.hideAsync()
+		}
+	}, [fontsLoaded])
+
+	if (!fontsLoaded) {
+		return null
+	}
 
 	return (
-		<GlobalProvider>
-			<Stack
-				screenOptions={{
-					headerShown: false,
-					contentStyle: { backgroundColor: "#1F1F27" },
-				}}
-			/>
-		</GlobalProvider>
+		<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+			<StatusBar style="light" />
+			<GlobalProvider>
+				<Stack
+					screenOptions={{
+						headerShown: false,
+						contentStyle: { backgroundColor: "#1F1F27" },
+					}}
+				/>
+			</GlobalProvider>
+		</View>
 	)
 }
