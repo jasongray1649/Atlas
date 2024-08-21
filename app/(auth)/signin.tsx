@@ -5,7 +5,7 @@
  * Includes form for user credentials and submission logic.
  */
 import { View, Image, ScrollView, Text, Alert } from "react-native"
-import React, { useState, useEffect, useCallback, useMemo } from "react"
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { images } from "@/constants"
 import CustomButton from "../../components/CustomButton"
@@ -34,6 +34,8 @@ const signinpage = () => {
 	const [password, setPassword] = useState("")
 	const [email, setEmail] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const initialCheckDone = useRef(false)
+	console.log("user", user)
 
 	const submit = useCallback(async () => {
 		if (email == "" || password == "") {
@@ -47,7 +49,7 @@ const signinpage = () => {
 			const result = await getCurrentUser()
 			checkAuth()
 			Alert.alert("Success", "Logged in successfully")
-			router.replace("/nearby")
+			router.replace("/profile")
 		} catch (error: any) {
 			Alert.alert("Error", error.message)
 			console.log("ERROR isLoading:", isLoading)

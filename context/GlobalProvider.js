@@ -4,6 +4,7 @@ import {
 	useState,
 	useEffect,
 	useCallback,
+	useMemo,
 } from "react"
 import { getCurrentUser, signOut } from "../lib/appwrite"
 
@@ -14,6 +15,8 @@ export const GlobalProvider = ({ children }) => {
 	const [user, setUser] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)
 	const [authError, setAuthError] = useState(null)
+	const [initialAuthCheckComplete, setInitialAuthCheckComplete] =
+		useState(false)
 
 	const checkAuth = useCallback(async () => {
 		setIsLoading(true)
@@ -22,6 +25,7 @@ export const GlobalProvider = ({ children }) => {
 			if (res) {
 				setIsLoggedIn(true)
 				setUser(res)
+				setAuthError(null)
 				console.log("User Authenticated")
 			} else {
 				setIsLoggedIn(false)
@@ -39,23 +43,13 @@ export const GlobalProvider = ({ children }) => {
 		}
 	}, [])
 
-	useEffect(() => {
-		checkAuth() //initial auth check
-
-		//periodic auth check
-		const authCheckInterval = setInterval(checkAuth, 5 * 6 * 1000)
-		return () => clearInterval(authCheckInterval)
-	}, [checkAuth])
-
-	useEffect(() => {
-		if (isLoggedIn) console.log("username:", user.username)
-	}, [user])
-
 	const handleSignOut = useCallback(async () => {
 		setIsLoading(true)
 		try {
 			await signOut()
-			checkAuth()
+			await checkAuth()
+			setIsLoggedIn(false)
+			setUser(null)
 		} catch (error) {
 			console.error("GlobalProvider: Error signing out:", error)
 			setAuthError("Error signing out. Please try again.")
@@ -64,19 +58,42 @@ export const GlobalProvider = ({ children }) => {
 		}
 	}, [])
 
+	useEffect(() => {
+		console.log("initial auth before:", initialAuthCheckComplete)
+		checkAuth() //initial auth check
+		console.log("initial auth after:", initialAuthCheckComplete)
+	}, [checkAuth])
+
+	useEffect(() => {
+		if (user) console.log("username:", user.username)
+	}, [user, isLoggedIn])
+
+	const contextValue = useMemo(
+		() => ({
+			isLoggedIn,
+			setIsLoggedIn,
+			user,
+			setUser,
+			isLoading,
+			setIsLoading,
+			handleSignOut,
+			checkAuth,
+			authError,
+			setInitialAuthCheckComplete,
+		}),
+		[
+			isLoggedIn,
+			user,
+			isLoading,
+			handleSignOut,
+			checkAuth,
+			authError,
+			initialAuthCheckComplete,
+		]
+	)
+
 	return (
-		<GlobalContext.Provider
-			value={{
-				isLoggedIn,
-				setIsLoggedIn,
-				user,
-				setUser,
-				isLoading,
-				setIsLoading,
-				handleSignOut,
-				checkAuth,
-			}}
-		>
+		<GlobalContext.Provider value={contextValue}>
 			{children}
 		</GlobalContext.Provider>
 	)

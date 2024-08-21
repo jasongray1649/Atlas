@@ -11,45 +11,29 @@ import { images } from "../constants"
 import CustomButton from "../components/CustomButton"
 import { router } from "expo-router"
 import "react-native-url-polyfill/auto"
+import { useGlobalContext } from "@/context/GlobalProvider"
 
 export default function App() {
+	const { isLoggedIn, isLoading, checkAuth } = useGlobalContext()
+	console.log("Logged in", isLoggedIn)
+	console.log("Loading", isLoading)
+
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<ScrollView
 				contentContainerStyle={{
 					flexGrow: 1,
 					justifyContent: "center",
+					alignItems: "center",
 					height: "101%",
+					width: "105%",
 				}}
 			>
-				<View
-					style={{
-						alignItems: "center",
-						paddingHorizontal: 24,
-						marginTop: -10,
-					}}
-				>
-					<Image
-						source={images.logo}
-						style={{ width: 300, height: 150, marginTop: 0 }}
-						resizeMode="contain"
-					/>
-
-					<Image
-						source={images.cards}
-						style={{ width: 300, height: 300, marginTop: -40 }}
-						resizeMode="contain"
-					/>
-					<CustomButton
-						title="Get Atlas"
-						handlePress={() => {
-							router.replace("/signin")
-						}}
-						containerStyles="w-full mt+10"
-						textStyles={""}
-						isLoading={false}
-					/>
-				</View>
+				<Image
+					source={images.cards}
+					style={{ width: 500, height: 500, marginTop: -40 }}
+					resizeMode="contain"
+				/>
 			</ScrollView>
 		</SafeAreaView>
 	)

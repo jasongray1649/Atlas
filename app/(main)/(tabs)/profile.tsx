@@ -10,10 +10,36 @@ import { useRouter } from "expo-router"
 import CustomButton from "@/components/CustomButton"
 import { useState } from "react"
 import { useGlobalContext } from "@/context/GlobalProvider"
+import { SafeAreaView } from "react-native-safe-area-context"
+
+const UserInfo = ({ user }: { user: any }) => {
+	if (!user) {
+		return (
+			<View className="p-4 bg-gray-800 rounded-lg mb-4">
+				<Text className="text-white text-lg">Loading user information...</Text>
+			</View>
+		)
+	}
+
+	return (
+		<View className="p-4 bg-gray-800 rounded-lg mb-4">
+			<Text className="text-white text-lg mb-2">
+				Username: {user.username || "N/A"}
+			</Text>
+			<Text className="text-white text-lg mb-2">
+				Email: {user.email || "N/A"}
+			</Text>
+			<Text className="text-white text-lg">ID: {user.$id || "N/A"}</Text>
+		</View>
+	)
+}
 
 const Profile = () => {
 	const { user, isLoggedIn } = useGlobalContext()
-	console.log("User:", user)
+
+	if (user) {
+		console.log("user:", user.username)
+	} else console.log("user: null")
 	console.log("isLoggedin:", isLoggedIn)
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const router = useRouter()
@@ -29,15 +55,27 @@ const Profile = () => {
 		}
 	}
 	return (
-		<View>
-			<CustomButton
-				title="Sign out"
-				handlePress={submit}
-				containerStyles={{ width: "100%", marginTop: 10 }}
-				textStyles={{}}
-				isLoading={isSubmitting}
-			/>
-		</View>
+		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
+			<View className="flex-1 p-3 justify-between">
+				<UserInfo user={user} />
+				<View
+					style={{
+						flex: 1,
+						padding: 3,
+						justifyContent: "center",
+						paddingHorizontal: 50,
+					}}
+				>
+					<CustomButton
+						title="Sign out"
+						handlePress={submit}
+						containerStyles={{ width: "100%", marginTop: -10 }}
+						textStyles={{}}
+						isLoading={isSubmitting}
+					/>
+				</View>
+			</View>
+		</SafeAreaView>
 	)
 }
 

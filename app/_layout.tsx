@@ -1,3 +1,5 @@
+// app/_layout.tsx
+// root layout
 import { Stack, useRouter, useSegments } from "expo-router"
 import { View, AppState, ActivityIndicator } from "react-native"
 import { StatusBar } from "expo-status-bar"
@@ -10,23 +12,39 @@ import "../global.css"
 import { getCurrentUser } from "@/lib/appwrite"
 
 function RootLayoutNav() {
-	const { isLoggedIn, isLoading, checkAuth } = useGlobalContext()
+	const { isLoggedIn, isLoading, checkAuth, user } = useGlobalContext()
 	const segments = useSegments()
 	const router = useRouter()
 
 	useEffect(() => {
+		console.log("RootLayoutNav useEffect triggered")
+		console.log("isLoading:", isLoading)
+		console.log("isLoggedIn:", isLoggedIn)
+		if (user) {
+			console.log("user:", user.username)
+		} else console.log("user: null")
+		console.log("segments:", segments)
+
 		if (!isLoading) {
 			const inAuthGroup = segments[0] === "(auth)"
-			console.log("inAuthGroup", inAuthGroup)
+			const isRootPath = !segments[0]
+			console.log("inAuthGroup:", inAuthGroup)
+			console.log("isloggedin:", isLoggedIn)
+			console.log("isRootPath:", isRootPath)
 			if (!isLoggedIn && !inAuthGroup) {
-				console.log("redirect to sign in")
+				console.log("Redirecting to sign in")
 				router.replace("/signin")
 			} else if (isLoggedIn && inAuthGroup) {
-				console.log("redirect to profile")
+				console.log("Redirecting to profile")
 				router.replace("/profile")
+			} else if (isLoggedIn && isRootPath) {
+				console.log("Logged in and on index, redirecting to profile")
+				router.replace("/profile")
+			} else {
+				console.log("No redirect needed")
 			}
 		}
-	}, [isLoggedIn, isLoading, segments])
+	}, [isLoggedIn, isLoading, segments, user])
 
 	// Recheck auth when the app comes to the foreground
 	useEffect(() => {
