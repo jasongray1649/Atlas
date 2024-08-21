@@ -1,11 +1,36 @@
-import { Stack } from "expo-router"
+import { Stack, useRouter, useSegments } from "expo-router"
 import { View } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import * as SplashScreen from "expo-splash-screen"
 import { useFonts } from "expo-font"
 import { useCallback, useEffect } from "react"
 import GlobalProvider from "../context/GlobalProvider"
+import { useGlobalContext } from "../context/GlobalProvider"
 import "../global.css"
+
+function RootLayoutNav() {
+	const { isLoggedIn } = useGlobalContext()
+	const segments = useSegments()
+	const router = useRouter()
+
+	useEffect(() => {
+		const inAuthGroup = segments[0] === "(auth)"
+		if (!isLoggedIn && !inAuthGroup) {
+			router.replace("/signin")
+		} else if (isLoggedIn && inAuthGroup) {
+			router.replace("/profile")
+		}
+	}, [isLoggedIn, segments])
+
+	return (
+		<Stack
+			screenOptions={{
+				headerShown: false,
+				contentStyle: { backgroundColor: "#1F1F27" },
+			}}
+		/>
+	)
+}
 
 export default function RootLayout() {
 	const [fontsLoaded] = useFonts({
@@ -38,12 +63,7 @@ export default function RootLayout() {
 		<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
 			<StatusBar style="light" />
 			<GlobalProvider>
-				<Stack
-					screenOptions={{
-						headerShown: false,
-						contentStyle: { backgroundColor: "#1F1F27" },
-					}}
-				/>
+				<RootLayoutNav />
 			</GlobalProvider>
 		</View>
 	)

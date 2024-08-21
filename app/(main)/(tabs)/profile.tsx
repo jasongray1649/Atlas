@@ -18,8 +18,6 @@ const submit = async () => {
 	setIsSubmitting(true)
 	try {
 		await signOut()
-		// Reset the entire navigation state and go to the index
-		router.replace("/signin")
 	} catch (error: any) {
 		console.log("Error signing out:", error.message)
 	} finally {
