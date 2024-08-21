@@ -12,11 +12,14 @@ import CustomButton from "../../components/CustomButton"
 import { router, Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import CustomInput from "../../components/CustomInput"
-import { getCurrentUser, SignIn } from "@/lib/appwrite"
+import { getCurrentUser, signIn } from "@/lib/appwrite"
 import { useGlobalContext } from "../../context/GlobalProvider"
 
-const Signin = () => {
+const signinpage = () => {
 	const { setUser, setIsLoggedIn } = useGlobalContext()
+	const { isLoading, isLoggedIn } = useGlobalContext()
+	console.log("signin isLoading:", isLoading)
+	console.log("signin isLoggedIn:", isLoggedIn)
 	const [password, setPassword] = useState("")
 	const [email, setEmail] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
@@ -28,7 +31,7 @@ const Signin = () => {
 		setIsSubmitting(true)
 
 		try {
-			await SignIn(email, password)
+			await signIn(email, password)
 			const result = await getCurrentUser()
 			setUser(result)
 			setIsLoggedIn(true)
@@ -36,6 +39,8 @@ const Signin = () => {
 			router.replace("/nearby")
 		} catch (error: any) {
 			Alert.alert("Error", error.message)
+			console.log("ERROR isLoading:", isLoading)
+			console.log("ERROR isLoggedIn:", isLoggedIn)
 		} finally {
 			setIsSubmitting(false)
 		}
@@ -96,4 +101,4 @@ const Signin = () => {
 	)
 }
 
-export default Signin
+export default signinpage

@@ -13,23 +13,25 @@ import { router, Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import CustomInput from "../../components/CustomInput"
 import { createUser } from "../../lib/appwrite"
+import { useGlobalContext } from "../../context/GlobalProvider"
 
 const SignUp = () => {
-	const [username, setUser] = useState("")
+	const [username, setUsername] = useState("")
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
+	const { setUser, setIsLoggedIn } = useGlobalContext()
 
 	const submit = async () => {
 		if (username == "" || email == "" || password == "") {
 			Alert.alert("Error", "Please fill in all fields")
 		}
 		setIsSubmitting(true)
-
+		console.log(password)
 		try {
 			const result = await createUser(email, password, username)
-
-			//set to global state using context...
+			setUser(result)
+			setIsLoggedIn(true)
 			router.replace("/nearby")
 		} catch (error: any) {
 			Alert.alert("Error", error.message)
@@ -64,7 +66,7 @@ const SignUp = () => {
 						<CustomInput
 							placeholder="Username"
 							value={username}
-							onChangeText={setUser}
+							onChangeText={setUsername}
 						/>
 						<CustomInput
 							placeholder="Password"
