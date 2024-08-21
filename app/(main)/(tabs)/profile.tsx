@@ -4,7 +4,7 @@
  * Displays the user's profile overview and quick actions.
  * Provides links to detailed profile view and editing options.
  */
-import { View, Text, TouchableOpacity } from "react-native"
+import { View, Text, Image } from "react-native"
 import React from "react"
 import { useRouter } from "expo-router"
 import CustomButton from "@/components/CustomButton"
@@ -30,6 +30,7 @@ const UserInfo = ({ user }: { user: any }) => {
 				Email: {user.email || "N/A"}
 			</Text>
 			<Text className="text-white text-lg">ID: {user.$id || "N/A"}</Text>
+			<Image></Image>
 		</View>
 	)
 }
