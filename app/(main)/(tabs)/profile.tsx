@@ -7,38 +7,38 @@
 import { View, Text, TouchableOpacity } from "react-native"
 import React from "react"
 import { useRouter } from "expo-router"
-import { signOut } from "@/lib/appwrite"
 import CustomButton from "@/components/CustomButton"
 import { useState } from "react"
 import { useGlobalContext } from "@/context/GlobalProvider"
 
-const router = useRouter()
-const [isSubmitting, setIsSubmitting] = useState(false)
-const { handleSignOut } = useGlobalContext()
-
-const submit = async () => {
-	setIsSubmitting(true)
-	try {
-		await handleSignOut()
-	} catch (error: any) {
-		console.log("Error signing out:", error.message)
-	} finally {
-		setIsSubmitting(false)
+const Profile = () => {
+	const { user, isLoggedIn } = useGlobalContext()
+	console.log("User:", user)
+	console.log("isLoggedin:", isLoggedIn)
+	const [isSubmitting, setIsSubmitting] = useState(false)
+	const router = useRouter()
+	const { handleSignOut } = useGlobalContext()
+	const submit = async () => {
+		setIsSubmitting(true)
+		try {
+			await handleSignOut()
+		} catch (error: any) {
+			console.log("Error signing out:", error.message)
+		} finally {
+			setIsSubmitting(false)
+		}
 	}
-}
-
-const profile = () => {
 	return (
 		<View>
 			<CustomButton
 				title="Sign out"
 				handlePress={submit}
-				containerStyles="w-full mt-10"
-				textStyles={""}
+				containerStyles={{ width: "100%", marginTop: 10 }}
+				textStyles={{}}
 				isLoading={isSubmitting}
 			/>
 		</View>
 	)
 }
 
-export default profile
+export default Profile

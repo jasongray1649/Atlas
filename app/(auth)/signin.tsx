@@ -16,10 +16,9 @@ import { getCurrentUser, signIn } from "@/lib/appwrite"
 import { useGlobalContext } from "../../context/GlobalProvider"
 
 const signinpage = () => {
-	const { setUser, setIsLoggedIn } = useGlobalContext()
+	const { setUser, setIsLoggedIn, user } = useGlobalContext()
 	const { isLoading, isLoggedIn } = useGlobalContext()
-	console.log("signin isLoading:", isLoading)
-	console.log("signin isLoggedIn:", isLoggedIn)
+	const { checkAuth, authError } = useGlobalContext()
 	const [password, setPassword] = useState("")
 	const [email, setEmail] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
@@ -33,8 +32,7 @@ const signinpage = () => {
 		try {
 			await signIn(email, password)
 			const result = await getCurrentUser()
-			setUser(result)
-			setIsLoggedIn(true)
+			checkAuth()
 			Alert.alert("Success", "Logged in successfully")
 			router.replace("/nearby")
 		} catch (error: any) {
@@ -55,13 +53,11 @@ const signinpage = () => {
 						style={{ width: 300, height: 150, marginTop: 0 }}
 						resizeMode="contain"
 					/>
-
 					<Image
 						source={images.cards}
 						style={{ width: 300, height: 300, marginTop: -40 }}
 						resizeMode="contain"
 					/>
-
 					<View className="w-full mt-4 flex items-center">
 						<CustomInput
 							placeholder="Email"
@@ -75,7 +71,6 @@ const signinpage = () => {
 							secureTextEntry
 						/>
 					</View>
-
 					<CustomButton
 						title="Sign in"
 						handlePress={submit}
@@ -83,6 +78,7 @@ const signinpage = () => {
 						textStyles={""}
 						isLoading={isSubmitting}
 					/>
+					{authError && <Text className="text-red-500 mt-4">{authError}</Text>}{" "}
 					<View className="justify-center pt-5 flex-row gap-2">
 						<Text className="text-lg text-gray-100 font-pregular">
 							Don't have an account?

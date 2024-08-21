@@ -20,7 +20,7 @@ const SignUp = () => {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
-	const { setUser, setIsLoggedIn } = useGlobalContext()
+	const { checkAuth, authError } = useGlobalContext()
 
 	const submit = async () => {
 		if (username == "" || email == "" || password == "") {
@@ -30,8 +30,7 @@ const SignUp = () => {
 		console.log(password)
 		try {
 			const result = await createUser(email, password, username)
-			setUser(result)
-			setIsLoggedIn(true)
+			checkAuth()
 			router.replace("/nearby")
 		} catch (error: any) {
 			Alert.alert("Error", error.message)
@@ -83,6 +82,7 @@ const SignUp = () => {
 						textStyles={""}
 						isLoading={isSubmitting}
 					/>
+					{authError && <Text className="text-red-500 mt-4">{authError}</Text>}
 				</View>
 				<View className="justify-center pt-5 flex-row gap-2">
 					<Text className="text-lg text-gray-100 font-pregular">

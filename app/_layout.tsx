@@ -37,13 +37,14 @@ function RootLayoutNav() {
 	}, [checkAuth])
 
 	if (isLoading) {
-		;<ActivityIndicator
-			animating={isLoading}
-			color="#fff"
-			size="small"
-			className="ml-2"
-		/>
-		return null
+		return (
+			<ActivityIndicator
+				animating={isLoading}
+				color="#fff"
+				size="small"
+				style={{ marginLeft: 2 }}
+			/>
+		)
 	}
 
 	return (
@@ -69,7 +70,10 @@ export default function RootLayout() {
 		async function prepare() {
 			try {
 				// Keep the splash screen visible while we fetch resources
-				await SplashScreen.preventAutoHideAsync()
+				const result = await SplashScreen.preventAutoHideAsync()
+				if (!result) {
+					console.warn("Failed to prevent auto hide of splash screen.")
+				}
 			} catch (e) {
 				console.warn(e)
 			}
@@ -79,12 +83,23 @@ export default function RootLayout() {
 
 	const onLayoutRootView = useCallback(async () => {
 		if (fontsLoaded) {
-			await SplashScreen.hideAsync()
+			try {
+				await SplashScreen.hideAsync()
+			} catch (error) {
+				console.warn(error)
+			}
 		}
 	}, [fontsLoaded])
 
 	if (!fontsLoaded) {
-		return null
+		return (
+			<ActivityIndicator
+				animating={!fontsLoaded}
+				color="#fff"
+				size="small"
+				style={{ marginLeft: 2 }}
+			/>
+		)
 	}
 
 	return (

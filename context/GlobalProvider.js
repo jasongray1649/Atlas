@@ -13,6 +13,7 @@ export const GlobalProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [user, setUser] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)
+	const [authError, setAuthError] = useState(null)
 
 	const checkAuth = useCallback(async () => {
 		setIsLoading(true)
@@ -21,22 +22,34 @@ export const GlobalProvider = ({ children }) => {
 			if (res) {
 				setIsLoggedIn(true)
 				setUser(res)
+				console.log("User Authenticated")
 			} else {
 				setIsLoggedIn(false)
 				setUser(null)
+				setAuthError("Authentication failed. Please log in again.")
+				console.log("User not authenticated or error occurred")
 			}
 		} catch (error) {
-			console.log("GlobalProvider: get current user error:", error)
+			console.error("GlobalProvider: get current user error:", error)
 			setIsLoggedIn(false)
 			setUser(null)
+			setAuthError("An error occurred. Please try logging in again.")
 		} finally {
 			setIsLoading(false)
 		}
 	}, [])
 
 	useEffect(() => {
-		checkAuth()
+		checkAuth() //initial auth check
+
+		//periodic auth check
+		const authCheckInterval = setInterval(checkAuth, 5 * 6 * 1000)
+		return () => clearInterval(authCheckInterval)
 	}, [checkAuth])
+
+	useEffect(() => {
+		if (isLoggedIn) console.log("username:", user.username)
+	}, [user])
 
 	const handleSignOut = useCallback(async () => {
 		setIsLoading(true)
@@ -45,7 +58,8 @@ export const GlobalProvider = ({ children }) => {
 			setIsLoggedIn(false)
 			setUser(null)
 		} catch (error) {
-			console.error("GlobalProvider; Error signing out:", error)
+			console.error("GlobalProvider: Error signing out:", error)
+			setAuthError("Error signing out. Please try again.")
 		} finally {
 			setIsLoading(false)
 		}
