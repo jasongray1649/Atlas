@@ -55,8 +55,7 @@ export const GlobalProvider = ({ children }) => {
 		setIsLoading(true)
 		try {
 			await signOut()
-			setIsLoggedIn(false)
-			setUser(null)
+			checkAuth()
 		} catch (error) {
 			console.error("GlobalProvider: Error signing out:", error)
 			setAuthError("Error signing out. Please try again.")

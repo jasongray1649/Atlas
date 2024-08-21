@@ -43,7 +43,7 @@ export default function App() {
 					<CustomButton
 						title="Get Atlas"
 						handlePress={() => {
-							router.push("/signin")
+							router.replace("/signin")
 						}}
 						containerStyles="w-full mt+10"
 						textStyles={""}

@@ -17,9 +17,12 @@ function RootLayoutNav() {
 	useEffect(() => {
 		if (!isLoading) {
 			const inAuthGroup = segments[0] === "(auth)"
+			console.log("inAuthGroup", inAuthGroup)
 			if (!isLoggedIn && !inAuthGroup) {
+				console.log("redirect to sign in")
 				router.replace("/signin")
 			} else if (isLoggedIn && inAuthGroup) {
+				console.log("redirect to profile")
 				router.replace("/profile")
 			}
 		}
@@ -103,11 +106,11 @@ export default function RootLayout() {
 	}
 
 	return (
-		<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-			<StatusBar style="light" />
-			<GlobalProvider>
+		<GlobalProvider>
+			<View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+				<StatusBar style="light" />
 				<RootLayoutNav />
-			</GlobalProvider>
-		</View>
+			</View>
+		</GlobalProvider>
 	)
 }

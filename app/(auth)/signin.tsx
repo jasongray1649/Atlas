@@ -5,7 +5,7 @@
  * Includes form for user credentials and submission logic.
  */
 import { View, Image, ScrollView, Text, Alert } from "react-native"
-import React, { useState } from "react"
+import React, { useState, useEffect, useCallback, useMemo } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { images } from "@/constants"
 import CustomButton from "../../components/CustomButton"
@@ -15,17 +15,30 @@ import CustomInput from "../../components/CustomInput"
 import { getCurrentUser, signIn } from "@/lib/appwrite"
 import { useGlobalContext } from "../../context/GlobalProvider"
 
+type InputProps = {
+	placeholder: string
+	value: string
+	onChangeText: (text: string) => void
+	secureTextEntry?: boolean
+}
+
+type InputSectionProps = {
+	email: InputProps
+	password: InputProps
+}
+
 const signinpage = () => {
-	const { setUser, setIsLoggedIn, user } = useGlobalContext()
-	const { isLoading, isLoggedIn } = useGlobalContext()
+	console.log("signinloaded")
+	const { isLoading, isLoggedIn, user } = useGlobalContext()
 	const { checkAuth, authError } = useGlobalContext()
 	const [password, setPassword] = useState("")
 	const [email, setEmail] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 
-	const submit = async () => {
+	const submit = useCallback(async () => {
 		if (email == "" || password == "") {
 			Alert.alert("Error", "Please fill in all fields")
+			return
 		}
 		setIsSubmitting(true)
 
@@ -42,7 +55,24 @@ const signinpage = () => {
 		} finally {
 			setIsSubmitting(false)
 		}
-	}
+	}, [email, password, checkAuth])
+
+	const inputProps: InputSectionProps = useMemo(
+		() => ({
+			email: {
+				placeholder: "Email",
+				value: email,
+				onChangeText: setEmail,
+			},
+			password: {
+				placeholder: "Password",
+				value: password,
+				onChangeText: setPassword,
+				secureTextEntry: true,
+			},
+		}),
+		[email, password]
+	)
 
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
@@ -59,17 +89,7 @@ const signinpage = () => {
 						resizeMode="contain"
 					/>
 					<View className="w-full mt-4 flex items-center">
-						<CustomInput
-							placeholder="Email"
-							value={email}
-							onChangeText={setEmail}
-						/>
-						<CustomInput
-							placeholder="Password"
-							value={password}
-							onChangeText={setPassword}
-							secureTextEntry
-						/>
+						<InputSection {...inputProps} />
 					</View>
 					<CustomButton
 						title="Sign in"
@@ -78,7 +98,6 @@ const signinpage = () => {
 						textStyles={""}
 						isLoading={isSubmitting}
 					/>
-					{authError && <Text className="text-red-500 mt-4">{authError}</Text>}{" "}
 					<View className="justify-center pt-5 flex-row gap-2">
 						<Text className="text-lg text-gray-100 font-pregular">
 							Don't have an account?
@@ -96,5 +115,12 @@ const signinpage = () => {
 		</SafeAreaView>
 	)
 }
+
+const InputSection = React.memo(({ email, password }: InputSectionProps) => (
+	<View className="w-full mt-4 flex items-center">
+		<CustomInput {...email} />
+		<CustomInput {...password} />
+	</View>
+))
 
 export default signinpage
