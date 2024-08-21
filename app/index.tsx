@@ -50,7 +50,7 @@ export default function App() {
 							resizeMode="contain"
 						/>
 						<CustomButton
-							title="Continue with Email"
+							title="Get Atlas"
 							handlePress={() => {
 								router.push("/signin")
 							}}

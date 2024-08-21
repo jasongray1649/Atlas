@@ -19,12 +19,7 @@ const submit = async () => {
 	try {
 		await signOut()
 		// Reset the entire navigation state and go to the index
-		router.replace({
-			pathname: "/(main)/(tabs)",
-			params: {
-				initial: "true",
-			},
-		})
+		router.replace("/signin")
 	} catch (error: any) {
 		console.log("Error signing out:", error.message)
 	} finally {
@@ -35,21 +30,6 @@ const submit = async () => {
 const profile = () => {
 	return (
 		<View>
-			<Text>profile</Text>
-			<View className="justify-center pt-5 flex-row gap-2">
-				<TouchableOpacity onPress={() => router.push("/")}>
-					<Text className="text-3xl font-psemibold to-blue-700">
-						Return to Index (without signing out)
-					</Text>
-				</TouchableOpacity>
-			</View>
-			<View className="justify-center pt-5 flex-row gap-2">
-				<TouchableOpacity onPress={() => router.push("/signin")}>
-					<Text className="text-3xl font-psemibold to-blue-700">
-						Return to SignIn (without signing out)
-					</Text>
-				</TouchableOpacity>
-			</View>
 			<CustomButton
 				title="Sign out"
 				handlePress={submit}
