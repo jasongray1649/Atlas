@@ -10,14 +10,16 @@ import { useRouter } from "expo-router"
 import { signOut } from "@/lib/appwrite"
 import CustomButton from "@/components/CustomButton"
 import { useState } from "react"
+import { useGlobalContext } from "@/context/GlobalProvider"
 
 const router = useRouter()
 const [isSubmitting, setIsSubmitting] = useState(false)
+const { handleSignOut } = useGlobalContext()
 
 const submit = async () => {
 	setIsSubmitting(true)
 	try {
-		await signOut()
+		await handleSignOut()
 	} catch (error: any) {
 		console.log("Error signing out:", error.message)
 	} finally {
