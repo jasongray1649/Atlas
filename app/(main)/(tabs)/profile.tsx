@@ -11,7 +11,10 @@ import CustomButton from "@/components/CustomButton"
 import { useState } from "react"
 import { useGlobalContext } from "@/context/GlobalProvider"
 import { SafeAreaView } from "react-native-safe-area-context"
+import profile from "@/constants/profiles"
 
+// Loads error/loading message if user isn't available due to type error
+// user is null if not logged in, otherwise it's an object with user data
 const UserInfo = ({ user }: { user: any }) => {
 	if (!user) {
 		return (
@@ -21,6 +24,11 @@ const UserInfo = ({ user }: { user: any }) => {
 		)
 	}
 
+	// Displays user information
+	// TODO: Add user profile image
+	// TODO: Add image upload to database
+	// TODO: Create enough users to test this
+	// TODO: Add default image
 	return (
 		<View className="p-4 bg-gray-800 rounded-lg mb-4">
 			<Text className="text-white text-lg mb-2">
@@ -30,7 +38,11 @@ const UserInfo = ({ user }: { user: any }) => {
 				Email: {user.email || "N/A"}
 			</Text>
 			<Text className="text-white text-lg">ID: {user.$id || "N/A"}</Text>
-			<Image></Image>
+			<Image
+				source={profile[0].thumbnail}
+				style={{ width: 300, height: 150 }}
+				resizeMode="contain"
+			/>
 		</View>
 	)
 }
@@ -57,7 +69,7 @@ const Profile = () => {
 	}
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
-			<View className="flex-1 p-3 justify-between">
+			<View className="flex-1 justify-between">
 				<UserInfo user={user} />
 				<View
 					style={{

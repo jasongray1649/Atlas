@@ -13,15 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { getCurrentUser } from "@/lib/appwrite"
 
 const chats = () => {
-	return (
-		<SafeAreaView>
-			<Image
-				source={profile[0].thumbnail}
-				style={{ width: 300, height: 150 }}
-				resizeMode="contain"
-			/>
-		</SafeAreaView>
-	)
+	return null
 }
 
 export default chats

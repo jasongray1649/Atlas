@@ -48,6 +48,7 @@ const ProfileThumbnail: React.FC<ProfileThumbnailProps> = ({ profile }) => {
 	)
 }
 
+// TODO: Link this up with the database
 const Nearby = () => {
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>

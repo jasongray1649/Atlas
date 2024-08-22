@@ -6,12 +6,13 @@
  */
 // app/(main)/_layout.tsx
 import { Slot } from "expo-router"
-import { View } from "react-native"
+import { SafeAreaView } from "react-native"
+import { StatusBar } from "expo-status-bar"
 
 export default function MainLayout() {
 	return (
-		<View style={{ flex: 1 }}>
+		<SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
 			<Slot />
-		</View>
+		</SafeAreaView>
 	)
 }

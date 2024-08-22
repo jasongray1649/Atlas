@@ -96,7 +96,7 @@ export default function RootLayout() {
 				// Keep the splash screen visible while we fetch resources
 				const result = await SplashScreen.preventAutoHideAsync()
 				if (!result) {
-					console.warn("Failed to prevent auto hide of splash screen.")
+					console.log("Failed to prevent auto hide of splash screen.")
 				}
 			} catch (e) {
 				console.warn(e)
