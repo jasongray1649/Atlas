@@ -1,3 +1,5 @@
+//TODO: Convert this from placeholders to getting data from the backend
+
 const numberOfProfiles = 50
 
 // Dynamically import all images from the profiles folder

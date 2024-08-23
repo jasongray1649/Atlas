@@ -6,6 +6,7 @@
  */
 
 import React from "react"
+import { useState, useEffect } from "react"
 import {
 	View,
 	FlatList,
@@ -13,13 +14,24 @@ import {
 	Image,
 	Text,
 	StyleSheet,
+	Alert,
 } from "react-native"
 import { Link } from "expo-router"
 import profiles from "@/constants/profiles"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { getProfiles } from "@/lib/appwrite"
 
 interface ProfileThumbnailProps {
 	profile: { id: string; name: string; thumbnail: any }
+}
+
+type DatabaseDocument = {
+	$id: string
+	$collectionId: string
+	$databaseId: string
+	$createdAt: string
+	$updatedAt: string
+	[key: string]: any
 }
 
 const ProfileThumbnail: React.FC<ProfileThumbnailProps> = ({ profile }) => {
@@ -50,6 +62,8 @@ const ProfileThumbnail: React.FC<ProfileThumbnailProps> = ({ profile }) => {
 
 // TODO: Link this up with the database
 const Nearby = () => {
+	// moved to hooks
+
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
 			<FlatList

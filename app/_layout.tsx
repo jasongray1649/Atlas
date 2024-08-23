@@ -1,7 +1,7 @@
 // app/_layout.tsx
 // root layout
 import { Stack, useRouter, useSegments, usePathname } from "expo-router"
-import { View, AppState, ActivityIndicator } from "react-native"
+import { View, AppState, ActivityIndicator, SafeAreaView } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import * as SplashScreen from "expo-splash-screen"
 import { useFonts } from "expo-font"
@@ -62,12 +62,14 @@ function RootLayoutNav() {
 
 	if (isLoading) {
 		return (
-			<ActivityIndicator
-				animating={isLoading}
-				color="#fff"
-				size="small"
-				style={{ marginLeft: 2 }}
-			/>
+			<SafeAreaView style={{ flex: 1 }}>
+				<ActivityIndicator
+					animating={isLoading}
+					color="#fff"
+					size="small"
+					style={{ marginLeft: 2, marginTop: 50 }}
+				/>
+			</SafeAreaView>
 		)
 	}
 
@@ -117,12 +119,14 @@ export default function RootLayout() {
 
 	if (!fontsLoaded) {
 		return (
-			<ActivityIndicator
-				animating={!fontsLoaded}
-				color="#fff"
-				size="small"
-				style={{ marginLeft: 2 }}
-			/>
+			<SafeAreaView style={{ flex: 1 }}>
+				<ActivityIndicator
+					animating={!fontsLoaded}
+					color="#fff"
+					size="small"
+					style={{ marginLeft: 2, marginTop: 50 }}
+				/>
+			</SafeAreaView>
 		)
 	}
 
