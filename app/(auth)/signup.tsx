@@ -12,7 +12,7 @@ import CustomButton from "../../components/CustomButton"
 import { router, Link } from "expo-router"
 import { StatusBar } from "expo-status-bar"
 import CustomInput from "../../components/CustomInput"
-import { createUser } from "../../lib/appwrite"
+import { createUser, storeUserLocation } from "../../lib/appwrite"
 import { useGlobalContext } from "../../context/GlobalProvider"
 
 const SignUp = () => {
@@ -31,6 +31,7 @@ const SignUp = () => {
 		try {
 			const result = await createUser(email, password, username)
 			checkAuth()
+			storeUserLocation()
 			router.replace("/nearby")
 		} catch (error: any) {
 			Alert.alert("Error", error.message)

@@ -27,3 +27,25 @@
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⢀⡴⠊⣇⠉⢻⣿⣿⣿⡟⠁⠈⠛⢦⡀⠀⠀⢻⠀⢸⣿⣿⣷⡏⠻⣆⠀⢠⣾⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠉⠀⠀⠿⠀⢠⣿⣿⣿⡐⠛⠉⠉⠉⠉⠃⠀⢸⡆⢸⣿⣿⣿⡷⣤⢹⣧⢀⣟⣿⣿⣿⣿
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⢀⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⢸⡇⢸⣿⣿⣿⡏⣷⠞⠹⢿⣿⣿⣷⣯⣯
+
+interface User {
+// Appwrite system fields (prefixed with $)
+$id: string; // Unique identifier for the document
+$createdAt: string; // Creation timestamp
+$updatedAt: string; // Last update timestamp
+$permissions: string[]; // Access control permissions
+$collectionId: string; // ID of the collection this document belongs to
+$databaseId: string; // ID of the database
+$tenant: string; // Tenant ID (for multi-tenancy)
+
+// Custom user fields
+accountId: string; // Likely the user's account ID
+avatar: string; // URL to the user's avatar image
+country: string; // User's country
+email: string; // User's email address
+location: [number, number]; // Latitude and longitude
+locationTime: string; // Timestamp of when location was last updated
+points: number; // User's points (possibly for gamification)
+rank: string; // User's rank
+username: string; // User's username
+}

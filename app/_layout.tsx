@@ -9,7 +9,7 @@ import { useCallback, useEffect } from "react"
 import GlobalProvider from "../context/GlobalProvider"
 import { useGlobalContext } from "../context/GlobalProvider"
 import "../global.css"
-import { getCurrentUser } from "@/lib/appwrite"
+import { getCurrentUser, getLocale, storeUserLocation } from "@/lib/appwrite"
 
 function RootLayoutNav() {
 	const { isLoggedIn, isLoading, checkAuth, user } = useGlobalContext()
@@ -39,9 +39,13 @@ function RootLayoutNav() {
 				console.log("Redirecting to sign in")
 				router.replace("/signin")
 			} else if (isLoggedIn && inAuthGroup) {
+				getLocale()
+				storeUserLocation()
 				console.log("Redirecting to profile")
 				router.replace("/profile")
 			} else if (isLoggedIn && isRootPath) {
+				getLocale()
+				storeUserLocation()
 				console.log("Logged in and on index, redirecting to profile")
 				router.replace("/profile")
 			} else {

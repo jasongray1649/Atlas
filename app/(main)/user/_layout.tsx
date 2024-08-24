@@ -7,13 +7,8 @@ import profile from "@/constants/profiles"
 const UserLayout = () => {
 	const router = useRouter()
 	const params = useLocalSearchParams()
-
-	// Debugging: Log the params to check if they are being extracted correctly
-	console.log("URL Parameters:", params)
-
 	// Extract the 'id' parameter and ensure it's a string
 	const userId = params.ID?.toString() || "Unknown"
-	const userName = profile[Number(userId) - 1].name
 
 	return (
 		<Stack
@@ -23,11 +18,10 @@ const UserLayout = () => {
 						onPress={() => router.push("/nearby")}
 						className="flex-row items-center"
 					>
-						<Ionicons name="arrow-back" size={24} color="white" />
-						<Text className="ml-2 text-white">Back</Text>
+						<Ionicons name="arrow-back" size={30} color="white" />
 					</TouchableOpacity>
 				),
-				headerTitle: `${userName}`,
+				headerTitle: `${userId}`,
 				headerTitleAlign: "center",
 				headerStyle: { backgroundColor: "#1F1F27" },
 				headerTintColor: "white",

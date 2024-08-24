@@ -28,14 +28,12 @@ type InputSectionProps = {
 }
 
 const signinpage = () => {
-	console.log("signinloaded")
 	const { isLoading, isLoggedIn, user } = useGlobalContext()
 	const { checkAuth, authError } = useGlobalContext()
 	const [password, setPassword] = useState("")
 	const [email, setEmail] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const initialCheckDone = useRef(false)
-	console.log("user", user)
 
 	const submit = useCallback(async () => {
 		if (email == "" || password == "") {
@@ -49,6 +47,7 @@ const signinpage = () => {
 			const result = await getCurrentUser()
 			checkAuth()
 			Alert.alert("Success", "Logged in successfully")
+			console.log("FULL USER:", user)
 			router.replace("/profile")
 		} catch (error: any) {
 			Alert.alert("Error", error.message)
