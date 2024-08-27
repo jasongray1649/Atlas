@@ -4,18 +4,28 @@
  * Checks if you helped your neighbor. Possibly includes nearby events.
  * Full functionality still unknown.
  */
-import { View, Text } from "react-native"
 import React from "react"
+import { View, Text, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-//TODO: Figure out what this page is even for
-//TODO: Add badges, rewards, and other incentives for helping neighbors
+import PointsDisplay from "@/components/pointsdisplay"
+import TaskList from "@/components/TaskList"
+import NeighborHelpForm from "@/components/NeighborHelpForm"
 
-const neighbor = () => {
+const HelpNeighbors = () => {
 	return (
-		<SafeAreaView>
-			<Text>neighbor</Text>
+		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
+			<ScrollView>
+				<View className="p-4">
+					<Text className="text-white text-2xl font-bold mb-4">
+						Do Something
+					</Text>
+					<PointsDisplay />
+					<TaskList />
+					<NeighborHelpForm />
+				</View>
+			</ScrollView>
 		</SafeAreaView>
 	)
 }
 
-export default neighbor
+export default HelpNeighbors
