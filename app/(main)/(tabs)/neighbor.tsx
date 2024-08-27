@@ -1,27 +1,34 @@
-// app/(main)/(tabs)/neighbor.tsx
-/**
- * Neighbor tab component.
- * Checks if you helped your neighbor. Possibly includes nearby events.
- * Full functionality still unknown.
- */
 import React from "react"
 import { View, Text, ScrollView } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import PointsDisplay from "@/components/pointsdisplay"
+import { Feather } from "@expo/vector-icons"
+import PointsDisplay from "@/components/PointsDisplay"
 import TaskList from "@/components/TaskList"
 import NeighborHelpForm from "@/components/NeighborHelpForm"
 
 const HelpNeighbors = () => {
 	return (
 		<SafeAreaView style={{ flex: 1, backgroundColor: "#1F1F27" }}>
-			<ScrollView>
-				<View className="p-4">
-					<Text className="text-white text-2xl font-bold mb-4">
-						Do Something
-					</Text>
-					<PointsDisplay />
-					<TaskList />
-					<NeighborHelpForm />
+			<ScrollView className="flex-1">
+				<View className="p-6">
+					<View className="flex-row justify-between items-center mb-6">
+						<Text className="text-white text-3xl font-bold">
+							Help Neighbors
+						</Text>
+						<Feather name="help-circle" size={24} color="white" />
+					</View>
+
+					<View className="mb-8">
+						<PointsDisplay />
+					</View>
+
+					<View className="mb-8">
+						<TaskList />
+					</View>
+
+					<View>
+						<NeighborHelpForm />
+					</View>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
